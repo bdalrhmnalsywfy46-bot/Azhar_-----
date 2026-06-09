@@ -7,7 +7,7 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; text-align: center; background-color: #f4f7f6; margin: 0; padding: 20px; color: #333; }
         .card { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); max-width: 500px; margin: 20px auto; border-top: 8px solid #0f5132; }
-        .logo { width: 120px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
+        .logo { width: 140px; height: auto; margin-bottom: 15px; display: block; margin-left: auto; margin-right: auto; }
         .header { background-color: #0f5132; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
         .header h2 { margin: 0; font-size: 20px; }
         .header p { margin: 5px 0 0 0; font-size: 14px; }
@@ -27,7 +27,7 @@
 <body>
 
     <div class="card" id="searchBox">
-        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Al-Azhar_University_Logo.png" alt="لوجو جامعة الأزهر">
+        <img class="logo" src="https://i.ibb.co/3mSgYgq/Al-Azhar-University-Logo.png" alt="لوجو جامعة الأزهر">
         
         <div class="header">
             <h2>بوابة نتائج الامتحانات الإلكترونية</h2>
@@ -44,7 +44,7 @@
     </div>
 
     <div class="card" id="resultBox" style="display: none;">
-        <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Al-Azhar_University_Logo.png" alt="لوجو جامعة الأزهر">
+        <img class="logo" src="https://i.ibb.co/3mSgYgq/Al-Azhar-University-Logo.png" alt="لوجو جامعة الأزهر">
         
         <div class="header">
             <h2>بوابة نتائج الامتحانات الإلكترونية</h2>
@@ -55,7 +55,7 @@
             <div class="student-info">
                 <p><strong>الاسم:</strong> عبد الرحمن مصطفى محمود حنفي السيوفي</p>
                 <p><strong>الشعبة:</strong> الشريعة الإسلامية (الفرقة الأولى)</p>
-                <p><strong>حالة الطالب:</strong> ناجــــــــح 🎉</p>
+                <p><strong>حالة الطالب:</strong> ناجح</p>
             </div>
 
             <table>
@@ -83,12 +83,11 @@
                 </tbody>
             </table>
 
-            <div class="gpa">🌟 التقدير العام: جِيد جِداً مع مرتبة الشرف 🌟</div>
+            <div class="gpa">التقدير العام: جيد جداً مع مرتبة الشرف</div>
         </div>
     </div>
 
     <script>
-        // الأرقام السرية الخاصة بك والمربوطة بالسيستم تلقائياً
         var mySeatNumber = "52157"; 
         var myNationalID = "30606030103351"; 
 
@@ -99,7 +98,6 @@
             var searchBox = document.getElementById("searchBox");
             var resultBox = document.getElementById("resultBox");
 
-            // التحقق من تطابق رقم الجلوس والرقم القومي معاً
             if (seatInput === mySeatNumber && idInput === myNationalID) {
                 errorMsg.style.display = "none";
                 searchBox.style.display = "none";
