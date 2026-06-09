@@ -20,13 +20,13 @@
             color: var(--dark-gray);
         }
 
-        /* شاشة الدخول بالخلفية */
+        /* شاشة الدخول برابط خلفية الجامع المباشر */
         #login-screen {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('images (2).jpeg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.squarespace-cdn.com/content/v1/5aa0086e1aef1d13f4124921/1523447192347-1H9GKK6O3Z94WMSX415B/Al-Azhar_Mosque_Courtyard.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -37,7 +37,7 @@
         #login-container {
             width: 100%;
             max-width: 420px;
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding: 35px 25px;
@@ -48,10 +48,9 @@
             text-align: center;
         }
 
-        /* الشعار الدائري المظبوط */
         .logo-placeholder {
-            width: 90px;
-            height: 90px;
+            width: 95px;
+            height: 95px;
             margin: 0 auto 15px;
             background: #fff;
             border-radius: 50%;
@@ -67,7 +66,7 @@
             width: 100%;
             height: 100%;
             object-fit: contain;
-            padding: 5px;
+            padding: 3px;
             box-sizing: border-box;
         }
 
@@ -141,7 +140,7 @@
             border: 1px solid #ffcdd2;
         }
 
-        /* شاشة النتيجة المتجاوبة بنسبة 100% مع الموبايل */
+        /* صفحة النتيجة */
         #result-screen {
             display: none;
             padding: 10px;
@@ -159,49 +158,26 @@
 
         .header-table {
             width: 100%;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             border-collapse: collapse;
         }
 
-        .header-table td {
-            vertical-align: middle;
-        }
-
-        .header-text-right {
-            text-align: right; 
-            width: 40%; 
-            line-height: 1.5; 
-            font-size: 13px;
-        }
-
-        .header-text-left {
-            text-align: left; 
-            width: 40%; 
-            line-height: 1.5; 
-            font-size: 13px; 
-            vertical-align: top;
-        }
-
-        .header-logo-center {
-            text-align: center; 
-            width: 20%;
-        }
+        .header-text-right { text-align: right; width: 40%; line-height: 1.5; font-size: 13px; }
+        .header-text-left { text-align: left; width: 40%; line-height: 1.5; font-size: 13px; vertical-align: top; }
+        .header-logo-center { text-align: center; width: 20%; }
 
         .green-divider {
             border: none;
             border-top: 3px double var(--azhar-green);
             margin-bottom: 20px;
-            padding: 0;
         }
 
-        /* تفاصيل الطالب */
         .student-info {
             background-color: var(--light-bg);
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 20px;
             border-right: 6px solid var(--azhar-gold);
-            box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
         }
 
         .info-grid {
@@ -211,18 +187,11 @@
         }
 
         @media (min-width: 600px) {
-            .info-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            .info-grid { grid-template-columns: 1fr 1fr; }
         }
 
-        .info-item {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.6;
-        }
+        .info-item { font-size: 15px; color: #333; line-height: 1.6; }
 
-        /* جدول الدرجات */
         .results-table {
             width: 100%;
             border-collapse: collapse;
@@ -242,11 +211,8 @@
             font-weight: bold;
         }
 
-        .results-table tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
+        .results-table tr:nth-child(even) { background-color: #f8f9fa; }
 
-        /* ألوان التقديرات */
         .excellent { color: #2e7d32; font-weight: bold; }
         .very-good { color: #43a047; font-weight: bold; }
         .good { color: #1565c0; font-weight: bold; }
@@ -339,6 +305,8 @@
                     <tr><td>9</td><td style="text-align: right; padding-right: 15px;">قرآن كريم</td><td>50</td><td class="excellent">امتياز</td></tr>
                     <tr><td>10</td><td style="text-align: right; padding-right: 15px;">قضايا فقهية معاصرة</td><td>65</td><td class="good">جيد</td></tr>
                     <tr><td>11</td><td style="text-align: right; padding-right: 15px;">فقه مقارن</td><td>60</td><td class="pass">مقبول</td></tr>
+                    <tr><td>12</td><td style="text-align: right; padding-right: 15px;">قاعة بحث فقه</td><td>85</td><td class="excellent">امتياز</td></tr>
+                    <tr><td>13</td><td style="text-align: right; padding-right: 15px;">قاعة بحث أصول فقه</td><td>78</td><td class="very-good">جيد جداً</td></tr>
                 </tbody>
             </table>
 
@@ -353,7 +321,6 @@
             const inputNationalId = document.getElementById('national-id').value.trim();
             const inputSeatNum = document.getElementById('seat-num').value.trim();
             
-            // البيانات المطلوبة بدقة للاستعلام
             const correctNationalId = "30606030103351";
             const correctSeatNum = "52157";
             
