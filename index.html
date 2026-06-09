@@ -20,7 +20,7 @@
             color: var(--dark-gray);
         }
 
-        /* شاشة الدخول بالخلفية المحدثة باسم صورتك الجديد */
+        /* شاشة الدخول بالخلفية */
         #login-screen {
             display: flex;
             justify-content: center;
@@ -48,6 +48,7 @@
             text-align: center;
         }
 
+        /* الشعار الدائري المظبوط */
         .logo-placeholder {
             width: 90px;
             height: 90px;
@@ -57,10 +58,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
-            color: #777;
             border: 2px solid var(--azhar-gold);
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 5px;
+            box-sizing: border-box;
         }
 
         h2 {
@@ -133,17 +141,17 @@
             border: 1px solid #ffcdd2;
         }
 
-        /* صفحة النتيجة (مخفية في البداية) */
+        /* شاشة النتيجة المتجاوبة بنسبة 100% مع الموبايل */
         #result-screen {
             display: none;
-            padding: 20px;
+            padding: 10px;
         }
 
         #result-container {
             max-width: 850px;
-            margin: 30px auto;
+            margin: 15px auto;
             background: #fff;
-            padding: 40px 30px;
+            padding: 20px 15px;
             border-radius: 12px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.08);
             border: 1px solid #eef0f2;
@@ -151,28 +159,67 @@
 
         .header-table {
             width: 100%;
-            margin-bottom: 30px;
-            border-bottom: 3px double var(--azhar-green);
-            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-collapse: collapse;
         }
 
+        .header-table td {
+            vertical-align: middle;
+        }
+
+        .header-text-right {
+            text-align: right; 
+            width: 40%; 
+            line-height: 1.5; 
+            font-size: 13px;
+        }
+
+        .header-text-left {
+            text-align: left; 
+            width: 40%; 
+            line-height: 1.5; 
+            font-size: 13px; 
+            vertical-align: top;
+        }
+
+        .header-logo-center {
+            text-align: center; 
+            width: 20%;
+        }
+
+        .green-divider {
+            border: none;
+            border-top: 3px double var(--azhar-green);
+            margin-bottom: 20px;
+            padding: 0;
+        }
+
+        /* تفاصيل الطالب */
         .student-info {
             background-color: var(--light-bg);
-            padding: 20px;
+            padding: 15px;
             border-radius: 8px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             border-right: 6px solid var(--azhar-gold);
             box-shadow: inset 0 0 5px rgba(0,0,0,0.02);
         }
 
-        .student-info table {
-            width: 100%;
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
         }
 
-        .student-info td {
-            padding: 8px;
-            font-size: 16px;
+        @media (min-width: 600px) {
+            .info-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .info-item {
+            font-size: 15px;
             color: #333;
+            line-height: 1.6;
         }
 
         /* جدول الدرجات */
@@ -184,9 +231,9 @@
 
         .results-table th, .results-table td {
             border: 1px solid #dee2e6;
-            padding: 14px 10px;
+            padding: 12px 8px;
             text-align: center;
-            font-size: 15px;
+            font-size: 14px;
         }
 
         .results-table th {
@@ -199,10 +246,6 @@
             background-color: #f8f9fa;
         }
 
-        .results-table tr:hover {
-            background-color: #f1f3f5;
-        }
-
         /* ألوان التقديرات */
         .excellent { color: #2e7d32; font-weight: bold; }
         .very-good { color: #43a047; font-weight: bold; }
@@ -211,11 +254,11 @@
 
         .footer-note {
             text-align: center;
-            margin-top: 35px;
-            font-size: 13px;
+            margin-top: 25px;
+            font-size: 12px;
             color: #6c757d;
             border-top: 1px solid #dee2e6;
-            padding-top: 20px;
+            padding-top: 15px;
         }
     </style>
 </head>
@@ -223,7 +266,9 @@
 
     <div id="login-screen">
         <div id="login-container">
-            <div class="logo-placeholder">شعار الأزهر</div>
+            <div class="logo-placeholder">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Al_Azhar_University_logo.png" alt="شعار الأزهر">
+            </div>
             <h2>بوابة استعلام نتائج الطلاب</h2>
             
             <div class="form-group">
@@ -245,55 +290,55 @@
         <div id="result-container">
             <table class="header-table">
                 <tr>
-                    <td style="text-align: right; width: 35%; line-height: 1.6;">
+                    <td class="header-text-right">
                         <strong>جامعة الأزهر الشريف</strong><br>
                         <strong>كلية الشريعة والقانون</strong><br>
                         <strong>نظام الطـلاب</strong>
                     </td>
-                    <td style="text-align: center; width: 30%;">
-                        <div class="logo-placeholder" style="width: 85px; height: 85px; margin: 0 auto;">شعار الأزهر</div>
+                    <td class="header-logo-center">
+                        <div class="logo-placeholder" style="width: 75px; height: 75px; margin: 0 auto;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Al_Azhar_University_logo.png" alt="شعار الأزهر">
+                        </div>
                     </td>
-                    <td style="text-align: left; width: 35%; line-height: 1.6; vertical-align: top;">
-                        <strong>بيان درجات الفصل الدراسي</strong><br>
+                    <td class="header-text-left">
+                        <strong>بيان درجات الطلاب</strong><br>
                         <strong>العام الجامعي: 2025 / 2026</strong>
                     </td>
                 </tr>
             </table>
 
+            <hr class="green-divider">
+
             <div class="student-info">
-                <table>
-                    <tr>
-                        <td style="width: 60%;"><strong>اسم الطالب:</strong> عبد الرحمن مصطفى محمود حنفي السيوفي</td>
-                        <td style="width: 40%;"><strong>الفرقة الدراسية:</strong> الأولى</td>
-                    </tr>
-                    <tr>
-                        <td><strong>رقم الجلوس:</strong> 52157</td>
-                        <td><strong>الرقم القومي:</strong> 30606030103351</td>
-                    </tr>
-                </table>
+                <div class="info-grid">
+                    <div class="info-item"><strong>اسم الطالب:</strong> عبد الرحمن مصطفى محمود حنفي السيوفي</div>
+                    <div class="info-item"><strong>الفرقة الدراسية:</strong> الأولى</div>
+                    <div class="info-item"><strong>رقم الجلوس:</strong> 52157</div>
+                    <div class="info-item"><strong>الرقم القومي:</strong> 30606030103351</div>
+                </div>
             </div>
 
             <table class="results-table">
                 <thead>
                     <tr>
-                        <th style="width: 8%;">م</th>
-                        <th style="width: 52%; text-align: right; padding-right: 25px;">اسم المادة</th>
+                        <th style="width: 10%;">م</th>
+                        <th style="text-align: right; padding-right: 15px;">اسم المادة</th>
                         <th style="width: 20%;">الدرجة</th>
                         <th style="width: 20%;">التقدير</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>1</td><td style="text-align: right; padding-right: 25px;">تاريخ تشريع</td><td>65</td><td class="good">جيد</td></tr>
-                    <tr><td>2</td><td style="text-align: right; padding-right: 25px;">اللغة الأجنبية</td><td>47</td><td class="excellent">امتياز</td></tr>
-                    <tr><td>3</td><td style="text-align: right; padding-right: 25px;">علوم الحديث</td><td>80</td><td class="very-good">جيد جداً</td></tr>
-                    <tr><td>4</td><td style="text-align: right; padding-right: 25px;">تفسير آيات الأحكام</td><td>70</td><td class="good">جيد</td></tr>
-                    <tr><td>5</td><td style="text-align: right; padding-right: 25px;">اللغة العربية</td><td>90</td><td class="excellent">امتياز</td></tr>
-                    <tr><td>6</td><td style="text-align: right; padding-right: 25px;">فقه</td><td>70</td><td class="good">جيد</td></tr>
-                    <tr><td>7</td><td style="text-align: right; padding-right: 25px;">أصول فقه</td><td>60</td><td class="pass">مقبول</td></tr>
-                    <tr><td>8</td><td style="text-align: right; padding-right: 25px;">توحيد</td><td>70</td><td class="good">جيد</td></tr>
-                    <tr><td>9</td><td style="text-align: right; padding-right: 25px;">قرآن كريم</td><td>50</td><td class="excellent">امتياز</td></tr>
-                    <tr><td>10</td><td style="text-align: right; padding-right: 25px;">قضايا فقهية معاصرة</td><td>65</td><td class="good">جيد</td></tr>
-                    <tr><td>11</td><td style="text-align: right; padding-right: 25px;">فقه مقارن</td><td>60</td><td class="pass">مقبول</td></tr>
+                    <tr><td>1</td><td style="text-align: right; padding-right: 15px;">تاريخ تشريع</td><td>65</td><td class="good">جيد</td></tr>
+                    <tr><td>2</td><td style="text-align: right; padding-right: 15px;">اللغة الأجنبية</td><td>47</td><td class="excellent">امتياز</td></tr>
+                    <tr><td>3</td><td style="text-align: right; padding-right: 15px;">علوم الحديث</td><td>80</td><td class="very-good">جيد جداً</td></tr>
+                    <tr><td>4</td><td style="text-align: right; padding-right: 15px;">تفسير آيات الأحكام</td><td>70</td><td class="good">جيد</td></tr>
+                    <tr><td>5</td><td style="text-align: right; padding-right: 15px;">اللغة العربية</td><td>90</td><td class="excellent">امتياز</td></tr>
+                    <tr><td>6</td><td style="text-align: right; padding-right: 15px;">فقه</td><td>70</td><td class="good">جيد</td></tr>
+                    <tr><td>7</td><td style="text-align: right; padding-right: 15px;">أصول فقه</td><td>60</td><td class="pass">مقبول</td></tr>
+                    <tr><td>8</td><td style="text-align: right; padding-right: 15px;">توحيد</td><td>70</td><td class="good">جيد</td></tr>
+                    <tr><td>9</td><td style="text-align: right; padding-right: 15px;">قرآن كريم</td><td>50</td><td class="excellent">امتياز</td></tr>
+                    <tr><td>10</td><td style="text-align: right; padding-right: 15px;">قضايا فقهية معاصرة</td><td>65</td><td class="good">جيد</td></tr>
+                    <tr><td>11</td><td style="text-align: right; padding-right: 15px;">فقه مقارن</td><td>60</td><td class="pass">مقبول</td></tr>
                 </tbody>
             </table>
 
@@ -308,7 +353,7 @@
             const inputNationalId = document.getElementById('national-id').value.trim();
             const inputSeatNum = document.getElementById('seat-num').value.trim();
             
-            // البيانات المطلوبة بدقة
+            // البيانات المطلوبة بدقة للاستعلام
             const correctNationalId = "30606030103351";
             const correctSeatNum = "52157";
             
