@@ -3,89 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>محاكاة نتيجة الطلاب</title>
+    <title>نظام عرض نتائج الامتحانات</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #ffffff; /* خلفية الصفحة بيضاء */
+            background-color: #f4f6f9;
             margin: 0;
             padding: 20px;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* يبدأ من الأعلى مثل المواقع الرسمية */
+            align-items: center;
+            min-height: 100vh;
         }
 
         .container {
             background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
             width: 100%;
-            max-width: 800px;
-            padding: 10px;
+            max-width: 600px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+            margin-bottom: -5px;
+        }
+
+        input[type="text"], input[type="password"] {
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: #007bff;
+        }
+
+        button {
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result-section {
+            display: none; /* مخفي وهيظهر بس لما البيانات تكون صح */
+            margin-top: 25px;
+        }
+
+        .student-info {
+            background-color: #e9ecef;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1.6;
         }
 
         table {
             width: 100%;
-            border-collapse: collapse; /* دمج الحدود لتصبح خطوطاً موحدة */
-            margin-top: 20px;
-            background-color: #ffffff;
+            border-collapse: collapse;
+            margin-top: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
-        /* تنسيق الصف العلوي (العناوين) */
         th {
-            background-color: #f2f2f2; /* رمادي فاتح جداً مثل الصورة */
-            color: #000000; /* خط أسود */
+            background-color: #f8f9fa;
+            color: #333;
             font-weight: bold;
-            font-size: 16px;
             padding: 12px;
-            border: 1px solid #000000; /* خطوط سوداء */
+            border: 1px solid #e0e0e0;
             text-align: center;
         }
 
-        /* تنسيق خلايا البيانات */
         td {
-            padding: 15px;
-            border: 1px solid #000000; /* خطوط سوداء تماماً */
+            padding: 12px;
+            border: 1px solid #e0e0e0;
             text-align: center;
-            color: #000000; /* خط أسود */
-            font-size: 15px;
-            background-color: #ffffff; /* جميع الصفوف بيضاء بدون تمويج */
+            color: #555;
+        }
+
+        tr:nth-child(even) td {
+            background-color: #fdfdfd;
+        }
+
+        tr:hover td {
+            background-color: #f1f5f9;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
+    <h2>الاستعلام عن نتيجة الطالب</h2>
     
-    <table>
-        <thead>
-            <tr>
-                <th>كود المقرر</th>
-                <th>المقرر باللغة العربية</th>
-                <th>التقدير</th>
-                <th>الحالة</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>E105</td>
-                <td>قضايا فقهية معاصرة</td>
-                <td>ض ج</td>
-                <td>راسب</td>
-            </tr>
-            <tr>
-                <td>E106</td>
-                <td>تاريخ التشريع</td>
-                <td>ض</td>
-                <td>راسب</td>
-            </tr>
-            <tr>
-                <td>E107</td>
-                <td>مصطلح حديث</td>
-                <td>ل</td>
-                <td>ناجح</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="form-group" id="loginForm">
+        <label for="seatNumber">رقم الجلوس:</label>
+        <input type="text" id="seatNumber" placeholder="أدخل رقم الجلوس">
+
+        <label for="nationalId">الرقم القومي:</label>
+        <input type="text" id="nationalId" placeholder="أدخل الرقم القومي المكون من 14 رقم" maxlength="14">
+        
+        <button onclick="showResult()">عرض النتيجة</button>
+    </div>
+
+    <div class="result-section" id="resultSection">
+        <div class="student-info">
+            اسم الطالب: عبد الرحمن مصطفى محمود حنفي السيوفي <br>
+            رقم الجلوس: 52157
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>المادة</th>
+                    <th>الدرجة</th>
+                    <th>التقدير</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>قضايا فقهية معاصرة</td>
+                    <td>88</td>
+                    <td>جيد جداً</td>
+                </tr>
+                <tr>
+                    <td>تاريخ التشريع</td>
+                    <td>92</td>
+                    <td>امتياز</td>
+                </tr>
+                <tr>
+                    <td>مصطلح حديث</td>
+                    <td>85</td>
+                    <td>جيد جداً</td>
+                </tr>
+                <tr>
+                    <td>علم الإجرام والعقاب</td>
+                    <td>78</td>
+                    <td>جيد</td>
+                </tr>
+                <tr>
+                    <td>تاريخ القانون</td>
+                    <td>90</td>
+                    <td>امتياز</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
+<script>
+    function showResult() {
+        // سحب البيانات اللي المستخدم كتبها في الخانات
+        var seatInput = document.getElementById('seatNumber').value.trim();
+        var idInput = document.getElementById('nationalId').value.trim();
+
+        // الأرقام الصحيحة المطلوبة لفتح النتيجة
+        var correctSeat = "52157";
+        var correctNationalId = "30606030103351";
+
+        if(seatInput === correctSeat && idInput === correctNationalId) {
+            // لو صح، إخفاء الفورم وإظهار الجدول
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('resultSection').style.display = 'block';
+        } else {
+            // لو غلط أو ناقص
+            alert('عفواً، رقم الجلوس أو الرقم القومي غير صحيح. يرجى التأكد وإعادة المحاولة.');
+        }
+    }
+</script>
 
 </body>
 </html>
