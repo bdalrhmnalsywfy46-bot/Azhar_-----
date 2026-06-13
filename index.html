@@ -3,207 +3,339 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام عرض نتائج الامتحانات</title>
+    <title>بوابة نتائج امتحانات جامعة الأزهر</title>
     <style>
+        :root {
+            --azhar-green: #006633;
+            --azhar-gold: #c5a059;
+            --dark-gray: #333;
+            --light-bg: #f9f9f9;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f6f9;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            color: var(--dark-gray);
+        }
+
+        /* شاشة الدخول - تستدعي صورة الخلفية المحلية المرفوعة عندك بالظبط */
+        #login-screen {
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-        }
-
-        .container {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-            width: 100%;
-            max-width: 600px;
-        }
-
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 25px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 20px;
-        }
-
-        label {
-            font-weight: bold;
-            color: #555;
-            margin-bottom: -5px;
-        }
-
-        input[type="text"], input[type="password"] {
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            outline: none;
-            transition: border-color 0.3s;
-            width: 100%;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images (2).jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 20px;
             box-sizing: border-box;
         }
 
-        input[type="text"]:focus, input[type="password"]:focus {
-            border-color: #007bff;
-        }
-
-        button {
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-            margin-top: 10px;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .result-section {
-            display: none; /* مخفي وهيظهر بس لما البيانات تكون صح */
-            margin-top: 25px;
-        }
-
-        .student-info {
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-weight: bold;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        table {
+        #login-container {
             width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            background-color: #fff;
-            border-radius: 8px;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 35px 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-top: 6px solid var(--azhar-green);
+            text-align: center;
+        }
+
+        .logo-placeholder {
+            width: 95px;
+            height: 95px;
+            margin: 0 auto 15px;
+            background: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--azhar-gold);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             overflow: hidden;
         }
 
-        th {
-            background-color: #f8f9fa;
-            color: #333;
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            padding: 3px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            color: var(--azhar-green);
+            margin-bottom: 25px;
+            font-size: 20px;
             font-weight: bold;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #222;
+        }
+
+        input[type="text"] {
+            width: 100%;
             padding: 12px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 16px;
             text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s;
         }
 
-        td {
-            padding: 12px;
-            border: 1px solid #e0e0e0;
+        input[type="text"]:focus {
+            border-color: var(--azhar-green);
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 102, 51, 0.2);
+        }
+
+        button {
+            width: 100%;
+            background-color: var(--azhar-green);
+            color: white;
+            padding: 13px;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #004d26;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .error-msg {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 15px;
+            display: none;
+            background: rgba(255, 235, 235, 0.9);
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ffcdd2;
+        }
+
+        /* صفحة النتيجة */
+        #result-screen {
+            display: none;
+            padding: 10px;
+        }
+
+        #result-container {
+            max-width: 850px;
+            margin: 15px auto;
+            background: #fff;
+            padding: 20px 15px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border: 1px solid #eef0f2;
+        }
+
+        .header-table {
+            width: 100%;
+            margin-bottom: 15px;
+            border-collapse: collapse;
+        }
+
+        .header-text-right { text-align: right; width: 40%; line-height: 1.5; font-size: 13px; }
+        .header-text-left { text-align: left; width: 40%; line-height: 1.5; font-size: 13px; vertical-align: top; }
+        .header-logo-center { text-align: center; width: 20%; }
+
+        .green-divider {
+            border: none;
+            border-top: 3px double var(--azhar-green);
+            margin-bottom: 20px;
+        }
+
+        .student-info {
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-right: 6px solid var(--azhar-gold);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        @media (min-width: 600px) {
+            .info-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        .info-item { font-size: 15px; color: #333; line-height: 1.6; }
+
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        .results-table th, .results-table td {
+            border: 1px solid #dee2e6;
+            padding: 12px 8px;
             text-align: center;
-            color: #555;
+            font-size: 14px;
         }
 
-        tr:nth-child(even) td {
-            background-color: #fdfdfd;
+        .results-table th {
+            background-color: var(--azhar-green);
+            color: white;
+            font-weight: bold;
         }
 
-        tr:hover td {
-            background-color: #f1f5f9;
+        .results-table tr:nth-child(even) { background-color: #f8f9fa; }
+
+        .excellent { color: #2e7d32; font-weight: bold; }
+        .very-good { color: #43a047; font-weight: bold; }
+        .good { color: #1565c0; font-weight: bold; }
+        .pass { color: #ef6c00; font-weight: bold; }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 12px;
+            color: #6c757d;
+            border-top: 1px solid #dee2e6;
+            padding-top: 15px;
         }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h2>الاستعلام عن نتيجة الطالب</h2>
-    
-    <div class="form-group" id="loginForm">
-        <label for="seatNumber">رقم الجلوس:</label>
-        <input type="text" id="seatNumber" placeholder="أدخل رقم الجلوس">
-
-        <label for="nationalId">الرقم القومي:</label>
-        <input type="text" id="nationalId" placeholder="أدخل الرقم القومي المكون من 14 رقم" maxlength="14">
-        
-        <button onclick="showResult()">عرض النتيجة</button>
-    </div>
-
-    <div class="result-section" id="resultSection">
-        <div class="student-info">
-            اسم الطالب: عبد الرحمن مصطفى محمود حنفي السيوفي <br>
-            رقم الجلوس: 52157
+    <div id="login-screen">
+        <div id="login-container">
+            <div class="logo-placeholder">
+                <img src="images (1).jpeg" alt="شعار الأزهر">
+            </div>
+            <h2>بوابة استعلام نتائج الطلاب</h2>
+            
+            <div class="form-group">
+                <label for="national-id">الرقم القومي:</label>
+                <input type="text" id="national-id" placeholder="أدخل 14 رقم" maxlength="14" autocomplete="off">
+            </div>
+            
+            <div class="form-group">
+                <label for="seat-num">رقم الجلوس:</label>
+                <input type="text" id="seat-num" placeholder="أدخل رقم الجلوس" autocomplete="off">
+            </div>
+            
+            <button onclick="checkResult()">عرض النتيجة</button>
+            <div id="error" class="error-msg">عذراً، البيانات المدخلة غير صحيحة أو غير مسجلة!</div>
         </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>المادة</th>
-                    <th>الدرجة</th>
-                    <th>التقدير</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>قضايا فقهية معاصرة</td>
-                    <td>88</td>
-                    <td>جيد جداً</td>
-                </tr>
-                <tr>
-                    <td>تاريخ التشريع</td>
-                    <td>92</td>
-                    <td>امتياز</td>
-                </tr>
-                <tr>
-                    <td>مصطلح حديث</td>
-                    <td>85</td>
-                    <td>جيد جداً</td>
-                </tr>
-                <tr>
-                    <td>علم الإجرام والعقاب</td>
-                    <td>78</td>
-                    <td>جيد</td>
-                </tr>
-                <tr>
-                    <td>تاريخ القانون</td>
-                    <td>90</td>
-                    <td>امتياز</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
-</div>
 
-<script>
-    function showResult() {
-        // سحب البيانات اللي المستخدم كتبها في الخانات
-        var seatInput = document.getElementById('seatNumber').value.trim();
-        var idInput = document.getElementById('nationalId').value.trim();
+    <div id="result-screen">
+        <div id="result-container">
+            <table class="header-table">
+                <tr>
+                    <td class="header-text-right">
+                        <strong>جامعة الأزهر الشريف</strong><br>
+                        <strong>كلية الشريعة والقانون</strong><br>
+                        <strong>نظام الطـلاب</strong>
+                    </td>
+                    <td class="header-logo-center">
+                        <div class="logo-placeholder" style="width: 75px; height: 75px; margin: 0 auto;">
+                            <img src="images (1).jpeg" alt="شعار الأزهر">
+                        </div>
+                    </td>
+                    <td class="header-text-left">
+                        <strong>بيان درجات الطلاب</strong><br>
+                        <strong>العام الجامعي: 2025 / 2026</strong>
+                    </td>
+                </tr>
+            </table>
 
-        // الأرقام الصحيحة المطلوبة لفتح النتيجة
-        var correctSeat = "52157";
-        var correctNationalId = "30606030103351";
+            <hr class="green-divider">
 
-        if(seatInput === correctSeat && idInput === correctNationalId) {
-            // لو صح، إخفاء الفورم وإظهار الجدول
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('resultSection').style.display = 'block';
-        } else {
-            // لو غلط أو ناقص
-            alert('عفواً، رقم الجلوس أو الرقم القومي غير صحيح. يرجى التأكد وإعادة المحاولة.');
+            <div class="student-info">
+                <div class="info-grid">
+                    <div class="info-item"><strong>اسم الطالب:</strong> عبد الرحمن مصطفى محمود حنفي السيوفي</div>
+                    <div class="info-item"><strong>الفرقة الدراسية:</strong> الأولى</div>
+                    <div class="info-item"><strong>رقم الجلوس:</strong> 52157</div>
+                    <div class="info-item"><strong>الرقم القومي:</strong> 30606030103351</div>
+                </div>
+            </div>
+
+            <table class="results-table">
+                <thead>
+                    <tr>
+                        <th style="width: 10%;">م</th>
+                        <th style="text-align: right; padding-right: 15px;">اسم المادة</th>
+                        <th style="width: 20%;">الدرجة</th>
+                        <th style="width: 20%;">التقدير</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td style="text-align: right; padding-right: 15px;">تاريخ تشريع</td><td>65</td><td class="good">جيد</td></tr>
+                    <tr><td>2</td><td style="text-align: right; padding-right: 15px;">اللغة الأجنبية</td><td>47</td><td class="excellent">امتياز</td></tr>
+                    <tr><td>3</td><td style="text-align: right; padding-right: 15px;">علوم الحديث</td><td>80</td><td class="very-good">جيد جداً</td></tr>
+                    <tr><td>4</td><td style="text-align: right; padding-right: 15px;">تفسير آيات الأحكام</td><td>70</td><td class="good">جيد</td></tr>
+                    <tr><td>5</td><td style="text-align: right; padding-right: 15px;">اللغة العربية</td><td>90</td><td class="excellent">امتياز</td></tr>
+                    <tr><td>6</td><td style="text-align: right; padding-right: 15px;">فقه</td><td>70</td><td class="good">جيد</td></tr>
+                    <tr><td>7</td><td style="text-align: right; padding-right: 15px;">أصول فقه</td><td>60</td><td class="pass">مقبول</td></tr>
+                    <tr><td>8</td><td style="text-align: right; padding-right: 15px;">توحيد</td><td>70</td><td class="good">جيد</td></tr>
+                    <tr><td>9</td><td style="text-align: right; padding-right: 15px;">قرآن كريم</td><td>50</td><td class="excellent">امتياز</td></tr>
+                    <tr><td>10</td><td style="text-align: right; padding-right: 15px;">قضايا فقهية معاصرة</td><td>65</td><td class="good">جيد</td></tr>
+                    <tr><td>11</td><td style="text-align: right; padding-right: 15px;">فقه مقارن</td><td>60</td><td class="pass">مقبول</td></tr>
+                    <tr><td>12</td><td style="text-align: right; padding-right: 15px;">قاعة بحث فقه</td><td>85</td><td class="excellent">امتياز</td></tr>
+                    <tr><td>13</td><td style="text-align: right; padding-right: 15px;">قاعة بحث أصول فقه</td><td>78</td><td class="very-good">جيد جداً</td></tr>
+                </tbody>
+            </table>
+
+            <div class="footer-note">
+                <p>ملاحظة: هذه النتيجة استرشادية مستخرجة إلكترونياً ولا تعتبر مستنداً رسمياً يعتد به دون مراجعة الكلية.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function checkResult() {
+            const inputNationalId = document.getElementById('national-id').value.trim();
+            const inputSeatNum = document.getElementById('seat-num').value.trim();
+            
+            const correctNationalId = "30606030103351";
+            const correctSeatNum = "52157";
+            
+            const errorDiv = document.getElementById('error');
+            const loginScreen = document.getElementById('login-screen');
+            const resultScreen = document.getElementById('result-screen');
+
+            if (inputNationalId === correctNationalId && inputSeatNum === correctSeatNum) {
+                loginScreen.style.display = 'none';
+                resultScreen.style.display = 'block';
+                errorDiv.style.display = 'none';
+            } else {
+                errorDiv.style.display = 'block';
+            }
         }
-    }
-</script>
-
+    </script>
 </body>
 </html>
